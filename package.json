@@ -1,0 +1,37 @@
+{
+  "name": "mobileapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "aproba": "^1.2.0",
+    "are-we-there-yet": "^1.1.5",
+    "assert-plus": "^1.0.0",
+    "asynckit": "^0.4.0",
+    "aws-sign2": "^0.7.0",
+    "aws4": "^1.11.0",
+    "bcryptjs": "^2.4.3",
+    "block-stream": "^0.0.9",
+    "body-parser": "^1.19.0",
+    "caseless": "^0.12.0",
+    "combined-stream": "^1.0.8",
+    "console-control-strings": "^1.1.0",
+    "dashdash": "^1.14.1",
+    "delayed-stream": "^1.0.0",
+    "delegates": "^1.0.0",
+    "dotenv": "^10.0.0",
+    "morgan": "~1.9.1",
+    "express": "^4.17.1",
+    "extend": "^3.0.2",
+    "fast-deep-equal": "^3.1.3",
+    "fast-json-stable-stringify": "^2.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
