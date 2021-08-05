@@ -24,6 +24,9 @@ const vaccinationBoothsSchema = new Schema({
       ref: "user",
     },
   ],
+  vac_event: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "vaccinationEvents" },
+  ],
 });
 
 module.exports = mongoose.model("vaccinationBooths", vaccinationBoothsSchema);

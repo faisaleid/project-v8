@@ -7,8 +7,9 @@ const addvaccinationBooths = (req, res) => {
   NewvaccinationBooths.save((err, both) => {
     if (err) {
       res.send(err);
+    } else {
+      res.json(both);
     }
-    res.json(both);
   });
 };
 //module.exports = addBothAssignments;

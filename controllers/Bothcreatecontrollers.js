@@ -11,10 +11,6 @@ const addBothAssignments = (req, res) => {
   Promise.all([userpromise, vaccinationBoothspromise]).then((objects) => {
     const practitioner = objects[0];
     const both = objects[1];
-    console.log("----------------------------------------------");
-    console.log(practitioner);
-    console.log(both);
-    console.log("----------------------------------------------");
     practitioner.Boths.push(both._id);
     both.practitioners.push(practitioner._id);
     userSavePromise = practitioner.save();
@@ -26,10 +22,10 @@ const addBothAssignments = (req, res) => {
     );
   });
 };
-module.exports = addBothAssignments;
+// module.exports = addBothAssignments;
 
 const getBothAssignments = (req, res) => {
-  BothAssignmentModel.find({}, (err, Assignments) => {
+  vaccinationBooth.find({}, (err, Assignments) => {
     if (err) {
       res.send(err);
     }
@@ -37,18 +33,19 @@ const getBothAssignments = (req, res) => {
   });
 };
 //module.exports = getBothAssignments;
+const getBothAssignmentsbyID = (req, res) => {
+  vaccinationBooth.findById(req.params.AssignmentID, (err, Assignment) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Assignment);
+  });
+};
 
-// module.exports = {
-//   addUserToBoth,
-//   addBothAssignmentsToUser,
-// };
+module.exports = {
+  addBothAssignments,
+  getBothAssignments,
+  getBothAssignmentsbyID,
+};
 
-// const getBothAssignmentsbyID = (req, res) => {
-//   BothAssignmentModel.findById(req.params.AssignmentID, (err, Assignment) => {
-//     if (err) {
-//       res.send(err);
-//     }
-//     res.json(Assignment);
-//   });
-// };
 // module.exports = getBothAssignmentsbyID;

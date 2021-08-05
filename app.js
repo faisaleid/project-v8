@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const vac_routes = require("./routes/vaccinationBooths");
 const both_routes = require("./routes/BothAssignments");
+const event_routes = require("./routes/vaccinationEvents");
+
 var logger = require("morgan");
 
 const userRoutes = require("./routes/Auth");
@@ -27,6 +29,7 @@ app.use(logger("dev"));
 app.use("/Auth", userRoutes);
 vac_routes(app);
 both_routes(app);
+event_routes(app);
 app.get("/", (req, res) =>
   res.send(`Node and express server running on port ${PORT}`)
 );

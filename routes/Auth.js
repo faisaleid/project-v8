@@ -47,39 +47,43 @@ router.post("/signup", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.findOne({ email: req.body.email })
     .exec()
     .then((user) => {
       if (user.length < 1) {
         return res.status(401).json({
-          message: "Auth failed",
+          message: "login failed",
         });
       }
-      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err) {
           return res.status(401).json({
-            message: "Auth failed",
+            message: "login failed",
           });
         }
         if (result) {
           const token = jwt.sign(
             {
-              email: user[0].email,
-              userId: user[0]._id,
+              email: user.email,
+              userId: user._id,
             },
             `${process.env.JWT_SECRET_KEY}`,
             {
               expiresIn: "1h",
             }
           );
-          return res.status(200).json({
-            message: "login successful",
-            token: token,
+          user.token = token;
+          user.save().then((user) => {
+            return res.status(200).json({
+              message: "login successful",
+              token: token,
+            });
+          });
+        } else {
+          res.status(401).json({
+            message: "login failed",
           });
         }
-        res.status(401).json({
-          message: "login failed",
-        });
       });
     })
     .catch((err) => {
@@ -94,7 +98,7 @@ router.get("/:userId", (req, res, next) => {
   User.findById({ _id: req.params.userId }, user)
     .exec()
     .then((user) => {
-      res.status(200).json({ user });
+      res.status(200).json(user);
     })
     .catch((err) => {
       console.log(err);
@@ -121,18 +125,15 @@ router.delete("/:userId", (req, res, next) => {
 });
 
 router.post("/:logOut", (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.findOne({ email: req.body.email })
     .exec()
     .then((user) => {
-      if (user.length < 1) {
+      user.token = "";
+      user.save().then((user) => {
         return res.status(200).json({
-          message: "you have logged out",
+          message: "logout successful",
         });
-      } else {
-        return res.status(401).json({
-          message: "you are logged in",
-        });
-      }
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -142,7 +143,7 @@ router.post("/:logOut", (req, res, next) => {
     });
 });
 
-router.put("Auth/userID", (req, res, next) => {
+router.put("Auth/:userID", (req, res) => {
   User.updateOne({ _id: req.params.id }, user)
     .then(() => {
       res.status(201).json({

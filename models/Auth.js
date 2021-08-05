@@ -11,6 +11,10 @@ const userSchema = mongoose.Schema({
   },
   password: { type: String, require: true },
   Boths: [{ type: mongoose.Schema.Types.ObjectId, ref: "vaccinationBooths" }],
+  // vac_event: [
+  //   { type: mongoose.Schema.Types.ObjectId, ref: "vaccinationEvents" },
+  // ],
+  token: { type: String },
 });
 
 module.exports = mongoose.model("user", userSchema);
