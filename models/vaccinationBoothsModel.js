@@ -13,7 +13,7 @@ const vaccinationBoothsSchema = new Schema({
     type: String,
   },
   name: {
-    type: Number,
+    type: String,
   },
   vaccination_center_id: {
     type: Number,
@@ -23,9 +23,6 @@ const vaccinationBoothsSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
     },
-  ],
-  vac_event: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "vaccinationEvents" },
   ],
 });
 

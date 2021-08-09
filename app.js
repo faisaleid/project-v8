@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const vac_routes = require("./routes/vaccinationBooths");
 const both_routes = require("./routes/BothAssignments");
 const event_routes = require("./routes/vaccinationEvents");
+const vac_center = require("./routes/vaccinationCenters");
 
 var logger = require("morgan");
 
@@ -30,6 +31,7 @@ app.use("/Auth", userRoutes);
 vac_routes(app);
 both_routes(app);
 event_routes(app);
+vac_center(app);
 app.get("/", (req, res) =>
   res.send(`Node and express server running on port ${PORT}`)
 );

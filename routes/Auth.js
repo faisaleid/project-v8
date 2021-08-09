@@ -143,18 +143,28 @@ router.post("/:logOut", (req, res, next) => {
     });
 });
 
-router.put("Auth/:userID", (req, res) => {
-  User.updateOne({ _id: req.params.id }, user)
-    .then(() => {
-      res.status(201).json({
-        message: "User updated successfully!",
-      });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      });
-    });
+router.put("/:id", (req, res) => {
+  console.log("Hi");
+  User.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true, useFindAndModify: false },
+    (err, user) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json(user), res.send("User Updated successfully");
+    }
+  );
+});
+
+router.get("/", (req, res) => {
+  User.find({}, (err, usr) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(usr);
+  });
 });
 
 module.exports = router;
